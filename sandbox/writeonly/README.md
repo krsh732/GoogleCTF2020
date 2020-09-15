@@ -182,4 +182,5 @@ CTF{why_read_when_you_can_write}
 ## Footnotes
 
 <a name="fn1" href="#rn1">[1]:</a> Upon saying a slightly different version of this sentence out loud to breadsticks, I realized exactly how ridiculous it sounds when interpreted without context...
+
 <a name="fn2" href="#rn2">[2]:</a> The `snprintf` part of the shellcode was not necessary. I could have instead read `stdout` and crafted the shellcode at runtime using pwntools' `asm` function (it even recognizes constants like `SYS_open` too). I only came to know of this later through breadsticks :(
