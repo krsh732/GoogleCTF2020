@@ -1,6 +1,8 @@
 import sys
-from z3 import *   
+from z3 import *
 
+# close your eyes
+# make it use unsigned ops
 BitVecRef.__lt__ = ULT
 BitVecRef.__le__ = ULE
 BitVecRef.__gt__ = UGT
@@ -36,7 +38,7 @@ for i in range(0, len(MATHOPEN)):
     for j in range(0, i):
         s.add(MATHOPEN[i] != MATHOPEN[j])
 
-## rest of HEROISK 
+## rest of HEROISK
 with open('rest_of_heroisk.cs', 'r') as f:
     rest_of_heroisk = f.read()
 
@@ -51,7 +53,7 @@ op_swaps = [(" ? ", ")) #"), (" > ", " <= "), (" >= ", " < "), (" < ", " >= "),
 for i in rest_of_heroisk:
     if "{" in i or "}" in i or "return" in i:
         continue
-    
+
     line = i
     if "if" in i:
         for op in op_swaps:
@@ -67,7 +69,7 @@ if s.check() != sat:
 
 model = s.model()
 shuffled_answer = [model[MATHOPEN[i]].as_long() for i in range(len(MATHOPEN))]
-shuffle_map = [2, 12, 4, 0, 21, 22, 11, 15, 23, 27, 5, 10, 6, 19, 20, 9, 16, 
+shuffle_map = [2, 12, 4, 0, 21, 22, 11, 15, 23, 27, 5, 10, 6, 19, 20, 9, 16,
                 24, 8, 1, 7, 26, 17, 25, 3, 13, 18, 14, 28, 29]
 answer = [0]*len(shuffled_answer)
 for i,c in enumerate(shuffle_map):
