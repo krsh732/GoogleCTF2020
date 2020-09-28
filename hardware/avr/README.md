@@ -156,7 +156,7 @@ def main():
         io = connect()
         io.send(msg)
         if b"on" in get_post_login_timer_status(io):
-            print(f"\nRace condition triggered using {num_pads} newlines.")
+            print(f"\nRace condition triggered using {num_pads} padding newlines.")
             flag = get_flag(io).decode()
         io.close()
         num_pads += 1
