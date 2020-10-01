@@ -224,13 +224,31 @@ Enter number of sectors to read (1-16): 16
 
 ### Getting The Flag For Real
 
+- So it was clear we needed to somehow read sector 0 in challenge mode (no debugger allowed) to get the real flag
+
 - Breadsticks noticed the `(do not enter more than 5 chars)` and quickly thought to look for a buffer overflow
+
 - We searched for a bit, until he further realized this was ultra trivial thanks to the number reading function (0xfd in Ghidra)
-- It reads up to some hundreds of chars onto a stack buffer of size 8, and then calls `atoi` or something similar on the buffer and stores the result on `reg Y (gp28-29)`
-- So, if we began our input with numbers we wanted, we can control `reg W (gp24-25)`
-- We can also control:
-  - The return address, as it is stored on the stack and easily reachable thanks to the generous read amount
-  - `reg Y (gp28-29)`, as the function pops values from the stack onto `reg Y (gp28-29)` shortly before returning (0x115-0x116 in Ghidra)
+
+- The function (0xfd in Ghidra):
+
+  1. Saves `reg Y (gp28-29)` by pushing it on to the stack (0xfd in Ghidra)
+  2. Reads up to 1024 bytes from stdin onto a stack buffer of 6 bytes
+  3. Then calls `atoi` or something similar on the buffer and stores the result on `reg W (gp24-25)`
+  4. Restores `reg Y (gp28-29)` from the stack (0x115-0x116 in Ghidra)
+
+- So, thanks to the generous read, we can control:
+
+  - `reg W (gp24-25)`, if we began our input with numbers we wanted
+  - `reg Y (gp28-29)`, as the function pops values from the stack to restore it
+
+  - The return address, as it is stored on the stack
+
+This all works out nicely because 0x233 (in Ghidra):
+
+1. Is after the start sector check. More specifically right after the number reading call for # of sectors to read
+2. `reg Y (gp28-29)` at this point stores the start sector
+3. `reg W (gp24-25)` at this point stores the number of sectors to read 
 
 Thus the following exploit was crafted **(talk about how `termios` stuff from `debugger.py` had to be commented out)**:
 
