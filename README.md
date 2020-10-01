@@ -21,3 +21,7 @@ I had no clue [Google CTF 2020](https://capturetheflag.withgoogle.com/) was goin
 - [.NET (225 pts, 40 solves)](./reversing/dotNET/README.md)
 - [Beginner (50 pts, 482 solves)](./reversing/beginner/README.md)
 
+## Web
+
+- [Pasteurize (50 pts, 260 solves)](./web/pasteurize/README.md)
+
