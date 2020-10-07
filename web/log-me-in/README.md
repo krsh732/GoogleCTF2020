@@ -60,7 +60,7 @@ I noticed the following:
 - They use an url-encoded body parser
 - If we manage to successfully login as `michelle`, the flag is stored in our cookies
 
-I don't really remember much about the `mysql` package, so I decided to go and take a look at their [README](https://www.npmjs.com/package/mysql). According the following snippet from the README, it seems like everything is properly escaped:
+I don't really remember much about the `mysql` package, so I decided to go and take a look at their [README](https://www.npmjs.com/package/mysql). According to the following snippet from the README, it seems like everything is properly escaped:
 
 > In order to avoid SQL Injection attacks, you should always escape any user provided data before using it inside a SQL query. You can do so using the `mysql.escape()`, `connection.escape()` or `pool.escape()` methods:<br>
 >
