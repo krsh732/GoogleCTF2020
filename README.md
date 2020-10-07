@@ -25,4 +25,5 @@ I had no clue [Google CTF 2020](https://capturetheflag.withgoogle.com/) was goin
 
 - [Pasteurize (50 pts, 260 solves)](./web/pasteurize/README.md)
 - [Log-Me-In (87 pts, 140 solves)](./web/log-me-in/README.md)
+- [Tech Support (136 pts, 90 solves)](./web/tech_support/README.md)
 
