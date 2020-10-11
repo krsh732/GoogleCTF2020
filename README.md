@@ -12,6 +12,7 @@ I had no clue [Google CTF 2020](https://capturetheflag.withgoogle.com/) was goin
 
 - [AVR (320 pts, 16 solves)](./hardware/avr/README.md)
 - [Registers Matter (347 pts, 12 solves)](./hardware/registers_matter/README.md)
+- [Basics (50 pts, 280 solves)](./hardware/basics/README.md)
 
 ### Sandbox
 
